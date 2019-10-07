@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Psychic Game</title>
+</head>
+
+<body>
+
+    <div>
+        <p id="directions-text"><strong>The Psychic Game!</strong></p>
+        <p id="userchoice-text"></p>
+        <p id="computerchoice-text"></p>
+        <p id="wins-text"></p>
+        <p id="losses-text"></p>
+        <p id="attempts"></p>
+        <p id="wrong-guesses"></p>
+    </div>
+
+    <script type="text/javascript">
+        
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+       
+        var wins = 0;
+        var losses = 0;
+        var attempts = 10;
+        var wrongGuesses = []
+
+        // Create variables that hold references to the places in the HTML where we want to display things.
+        var directionsText = document.getElementById("directions-text");
+        var userChoiceText = document.getElementById("userchoice-text");
+        var computerChoiceText = document.getElementById("computerchoice-text");
+        var winsText = document.getElementById("wins-text");
+        var lossesText = document.getElementById("losses-text");
+        var attemptsText = document.getElementById("attempts");
+        var wrongGuessesText = document.getElementById("wrong-guesses");
+
+     
+            
+            // This function is run whenever the user presses a key.
+            document.onkeyup = function (event) {
+
+                // Determines which key was pressed.
+                var userGuess = event.key;
+
+                // Randomly chooses a choice from the options array. This is the Computer's guess.
+                var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+
+
+
+                if (userGuess === computerGuess) {
+                    wins++;
+                    wrongGuesses = [];
+                    attempts = 10;
+                }
+                
+                else {
+                    attempts--;
+                    wrongGuesses.push(userGuess);
+                    if (attempts === 0) {
+                        losses++
+                        wrongGuesses = [];
+                        attempts = 10
+                    }
+
+                };
+
+
+
+                // Display the user and computer guesses, and wins/losses/attempts.
+                userChoiceText.textContent = "You chose: " + userGuess;
+                winsText.textContent = "wins: " + wins;
+                lossesText.textContent = "losses: " + losses;
+                attemptsText.textContent = "attempts: " + attempts;
+                wrongGuessesText.textContent = "Letter's Guessed: " + wrongGuesses;
+            };
+
+    </script>
+</body>
+
+</html>
